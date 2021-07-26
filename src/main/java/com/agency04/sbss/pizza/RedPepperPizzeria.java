@@ -1,16 +1,23 @@
 package com.agency04.sbss.pizza;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class RedPepperPizzeria implements PizzeriaService{
+    @Value("Red Pepper Pizzeria")
     private String name;
-    private String adress;
+    @Value("Peperoni Rossi 17")
+    private String address;
+    @Value("Peperossi")
     private String owner;
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAdress(String address) {
+        this.address = address;
     }
 
     public void setOwner(String owner) {
@@ -24,7 +31,7 @@ public class RedPepperPizzeria implements PizzeriaService{
 
     @Override
     public String getAddress() {
-        return this.adress;
+        return this.address;
     }
 
 

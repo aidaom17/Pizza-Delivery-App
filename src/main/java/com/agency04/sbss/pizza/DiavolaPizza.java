@@ -1,5 +1,8 @@
 package com.agency04.sbss.pizza;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DiavolaPizza implements Pizza{
 
     @Override
