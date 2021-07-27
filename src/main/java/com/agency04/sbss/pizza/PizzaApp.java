@@ -8,17 +8,15 @@ public class PizzaApp {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("spring-context.xml");
 
-        // pizzas
-        Pizza theDiavolaPizza = context.getBean("diavolaPizza", DiavolaPizza.class);
-        Pizza theTricolorePizza = context.getBean("tricolorePizza", TricolorePizza.class);
-
-        // deliveries - testing
-        PizzaDeliveryService theFirstDelivery =
-                context.getBean("pizzaDeliveryService", PizzaDeliveryService.class);
+        // testing for first pizzeria
+        PizzaDeliveryService theFirstPizzaDeliveryService =
+                context.getBean("pizzaDeliveryServiceImpl", PizzaDeliveryService.class);
 
         System.out.println("Testing first pizzeria");
-        System.out.println(theFirstDelivery.orderPizza(theDiavolaPizza));
-        System.out.println(theFirstDelivery.orderPizza(theTricolorePizza));
+        Pizza theDiavolaPizza = new DiavolaPizza();
+        System.out.println(theFirstPizzaDeliveryService.orderPizza(theDiavolaPizza));
+        Pizza theTricolorePizza = new TricolorePizza();
+        System.out.println(theFirstPizzaDeliveryService.orderPizza(theTricolorePizza));
 
         context.close();
     }

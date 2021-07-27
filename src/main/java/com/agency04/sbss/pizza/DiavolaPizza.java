@@ -1,10 +1,9 @@
 package com.agency04.sbss.pizza;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class DiavolaPizza implements Pizza{
-
+    private ingredients[] ingredientsArray = {ingredients.tomato_sauce, ingredients.mozzarella,
+            ingredients.spicy_salami, ingredients.chilli_pepper};
     @Override
     public String getName() {
         return "Diavola Pizza";
@@ -12,6 +11,10 @@ public class DiavolaPizza implements Pizza{
 
     @Override
     public String getIngredients() {
-        return "Tomato sauce, mozzarella, spicy salami, and chilli pepper.";
+        String result ="";
+        for (ingredients ingredient: ingredientsArray) {
+            result+= ingredient + " ";
+        }
+        return result;
     }
 }

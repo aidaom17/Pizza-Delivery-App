@@ -25,16 +25,21 @@ public class AllStarPizzeria implements PizzeriaService{
     }
     @Override
     public String getName() {
-        return "All Star Pizzeria";
+        return this.name;
     }
 
     @Override
     public String getAddress() {
-        return "Stella Stellini 17";
+        return this.address;
+    }
+
+    public String getOwner() {
+        return this.owner;
     }
 
     @Override
     public String makePizza(Pizza thePizza) {
-        return "Making: " + thePizza.getName() + " with " + thePizza.getIngredients();
+        return "Pizzeria " + name + " at address " + address + " ( Owner: " +
+                owner + ") " +  "is making: " + thePizza.getName() + " with " + thePizza.getIngredients();
     }
 }

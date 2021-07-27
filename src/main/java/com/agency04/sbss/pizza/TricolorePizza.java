@@ -1,9 +1,9 @@
 package com.agency04.sbss.pizza;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class TricolorePizza implements Pizza{
+    private ingredients[] ingredientsArray = {ingredients.mozzarella, ingredients.bresaola,
+            ingredients.parmesan_flakes};
     @Override
     public String getName() {
         return "Tricolore Pizza";
@@ -11,6 +11,10 @@ public class TricolorePizza implements Pizza{
 
     @Override
     public String getIngredients() {
-        return "Mozzarella, bresaola, and parmesan flakes.";
+        String result ="";
+        for (ingredients ingredient: ingredientsArray) {
+            result+= ingredient + " ";
+        }
+        return result;
     }
 }
