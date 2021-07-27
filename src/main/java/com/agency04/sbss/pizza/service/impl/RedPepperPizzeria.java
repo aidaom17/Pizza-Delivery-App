@@ -1,15 +1,17 @@
-package com.agency04.sbss.pizza;
+package com.agency04.sbss.pizza.service.impl;
 
+import com.agency04.sbss.pizza.model.Pizza;
+import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AllStarPizzeria implements PizzeriaService{
-    @Value("${pizzeria.name}")
+public class RedPepperPizzeria implements PizzeriaService {
+    @Value("Red Pepper Pizzeria")
     private String name;
-    @Value("${pizzeria.address}")
+    @Value("Peperoni Rossi 17")
     private String address;
-    @Value("${pizzeria.owner}")
+    @Value("Peperossi")
     private String owner;
 
     public void setName(String name) {
@@ -23,6 +25,7 @@ public class AllStarPizzeria implements PizzeriaService{
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
     @Override
     public String getName() {
         return this.name;
@@ -39,7 +42,7 @@ public class AllStarPizzeria implements PizzeriaService{
 
     @Override
     public String makePizza(Pizza thePizza) {
-        return "Pizzeria " + name + " at address " + address + " ( Owner: " +
+        return "Pizzeria " + name + " (Address: " + address + ", Owner: " +
                 owner + ") " +  "is making: " + thePizza.getName() + " with " + thePizza.getIngredients();
     }
 }
