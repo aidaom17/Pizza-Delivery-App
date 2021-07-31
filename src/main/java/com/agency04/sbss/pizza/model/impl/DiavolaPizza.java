@@ -18,6 +18,5 @@ public class DiavolaPizza implements Pizza {
     public String getIngredients() {
         return ingredients.stream().map(Ingredients::getValue).
                 collect(Collectors.joining(","));
-
     }
 }
