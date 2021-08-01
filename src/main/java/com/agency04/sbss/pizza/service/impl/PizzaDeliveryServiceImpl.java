@@ -4,19 +4,22 @@ import com.agency04.sbss.pizza.model.Pizza;
 import com.agency04.sbss.pizza.service.PizzaDeliveryService;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Component
+@Service
 public class PizzaDeliveryServiceImpl implements PizzaDeliveryService {
+
     @Autowired
-    @Qualifier("redPepperPizzeria")
     private PizzeriaService pizzeriaService;
 
     public PizzaDeliveryServiceImpl(){}
+
+    public PizzaDeliveryServiceImpl(PizzeriaService thePizzeriaService){
+        pizzeriaService = thePizzeriaService;
+    }
 
     @Override
     public String orderPizza(Pizza thePizza) {
