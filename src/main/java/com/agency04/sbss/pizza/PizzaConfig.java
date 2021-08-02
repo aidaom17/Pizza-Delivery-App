@@ -8,26 +8,26 @@ import com.agency04.sbss.pizza.service.impl.RedPepperPizzeria;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@ComponentScan("com.agency04.sbss.pizza")
+//@ComponentScan("com.agency04.sbss.pizza")
 @PropertySource("classpath:application.properties")
 public class PizzaConfig {
 
-    @Bean
-    public PizzeriaService allStarPizzeria() {
+   @Bean
+    public PizzeriaService allStarPizzeriaBean() {
         return new AllStarPizzeria();
     }
 
     @Bean
     @Primary
-    public PizzeriaService redPepperPizzeria(){
+    public PizzeriaService redPepperPizzeriaBean(){
         return new RedPepperPizzeria();
     }
 
     @Bean
-    public PizzaDeliveryService pizzaDeliveryServiceImpl(){
-        System.out.println("DI");
+    public PizzaDeliveryService pizzaDeliveryServiceImplBean(){
         PizzaDeliveryServiceImpl myPizzaDeliveryServiceImpl =
-                new PizzaDeliveryServiceImpl(redPepperPizzeria());
+                new PizzaDeliveryServiceImpl(redPepperPizzeriaBean());
         return myPizzaDeliveryServiceImpl;
     }
+
 }
