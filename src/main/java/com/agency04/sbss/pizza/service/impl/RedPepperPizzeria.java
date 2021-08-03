@@ -3,9 +3,8 @@ package com.agency04.sbss.pizza.service.impl;
 import com.agency04.sbss.pizza.model.Pizza;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
-@Service
+
 public class RedPepperPizzeria implements PizzeriaService {
     @Value("Red Pepper Pizzeria")
     private String name;
