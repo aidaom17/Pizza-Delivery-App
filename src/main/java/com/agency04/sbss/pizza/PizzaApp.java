@@ -4,24 +4,28 @@ import com.agency04.sbss.pizza.model.impl.DiavolaPizza;
 import com.agency04.sbss.pizza.model.Pizza;
 import com.agency04.sbss.pizza.model.impl.TricolorePizza;
 import com.agency04.sbss.pizza.service.PizzaDeliveryService;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.agency04.sbss.pizza.service.PizzeriaService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
+@SpringBootApplication
 public class PizzaApp {
+
     public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(PizzaApp.class, args);
 
-        ClassPathXmlApplicationContext context =
-                new ClassPathXmlApplicationContext("spring-context.xml");
-
-        // testing for first pizzeria
-        PizzaDeliveryService theFirstPizzaDeliveryService =
+        PizzaDeliveryService thePizzaDeliveryService =
                 context.getBean("pizzaDeliveryServiceImpl", PizzaDeliveryService.class);
 
         System.out.println("Testing first pizzeria");
         Pizza theDiavolaPizza = new DiavolaPizza();
-        System.out.println(theFirstPizzaDeliveryService.orderPizza(theDiavolaPizza));
+        System.out.println(thePizzaDeliveryService.orderPizza(theDiavolaPizza));
         Pizza theTricolorePizza = new TricolorePizza();
-        System.out.println(theFirstPizzaDeliveryService.orderPizza(theTricolorePizza));
+        System.out.println(thePizzaDeliveryService.orderPizza(theTricolorePizza));
 
-        context.close();
+        //testing allStarPizzeria bean
+        PizzeriaService newPizzeria = context.getBean("allStarPizzeria", PizzeriaService.class);
+        System.out.println(newPizzeria.makePizza(theDiavolaPizza));
     }
 }
