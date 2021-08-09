@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version "${springBootVersion}"
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    //id 'war'
 }
 
 group 'com.agency04.sbss'
@@ -22,6 +23,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile("org.springframework.boot:spring-boot-devtools")
+    implementation 'com.liferay:com.fasterxml.jackson.databind:2.10.5.1.LIFERAY-PATCHED-1'
+    implementation 'com.guicedee.services:javax.servlet-api:1.0.9.14'
+    //implementation 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
+    //implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.0-M4'
 }
 
 test {
