@@ -10,18 +10,17 @@ import java.util.List;
 
 @RestController
 @EnableWebMvc
-@RequestMapping("/api")
+@RequestMapping("/api/delivery")
 public class DeliveryRestController{
-
     @Autowired
     private PizzaDeliveryService thePizzaDeliveryService;
 
-    @PostMapping("/delivery/order")
+    @PostMapping("/order")
     public String newOrder(@RequestBody DeliveryOrderForm deliveryOrderForm){
         return thePizzaDeliveryService.orderPizza(deliveryOrderForm);
     }
 
-    @GetMapping("/delivery/list")
+    @GetMapping("/list")
     public List<DeliveryOrderForm> listOrders(){
         return thePizzaDeliveryService.getOrders();
     }

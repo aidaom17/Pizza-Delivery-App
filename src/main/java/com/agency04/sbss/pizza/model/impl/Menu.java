@@ -5,7 +5,7 @@ import com.agency04.sbss.pizza.model.Sizes;
 
 import java.util.List;
 
-public class PizzaObject {
+public class Menu {
     private List<Sizes> pizzaSizes;
     private List<Pizza> pizzas;
 

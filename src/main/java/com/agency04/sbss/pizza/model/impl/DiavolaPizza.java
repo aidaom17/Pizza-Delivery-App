@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import static com.agency04.sbss.pizza.model.Ingredients.*;
 
-
 public class DiavolaPizza implements Pizza {
     private String pizzaName;
     private final Set<Ingredients> ingredients =

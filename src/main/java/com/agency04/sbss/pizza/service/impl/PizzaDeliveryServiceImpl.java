@@ -28,6 +28,7 @@ public class PizzaDeliveryServiceImpl implements PizzaDeliveryService {
         this.pizzeriaService = thePizzeriaService;
     }
 
+    @Override
     public PizzeriaService getPizzeriaService() {
         return pizzeriaService;
     }

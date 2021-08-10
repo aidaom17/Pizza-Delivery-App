@@ -19,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean addCustomer(Customer customer) {
+    public boolean add(Customer customer) {
         if(customer == null)
             return false;
 
@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerByUserName(String name) {
+    public Customer getByUsername(String name) {
         for (Customer customer: customers) {
             if(customer.getName().equals(name)) {
                 return customer;
@@ -38,8 +38,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(Customer customer) {
-        Customer theCustomer = getCustomerByUserName(customer.getName());
+    public void update(Customer customer) {
+        Customer theCustomer = getByUsername(customer.getName());
         int index = customers.indexOf(theCustomer);
         if (index == -1) {
             throw new CustomerNotFoundException();
@@ -51,7 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomerByUserName(String name) {
+    public void delete(String name) {
         for (Customer customer: customers) {
             if(customer.getName().equals(name)) {
                 customers.remove(customer);
@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
+    public List<Customer> getAll() {
         return customers;
     }
 }

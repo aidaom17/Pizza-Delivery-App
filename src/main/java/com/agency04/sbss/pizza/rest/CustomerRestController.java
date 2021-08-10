@@ -11,46 +11,46 @@ import java.util.List;
 
 @RestController
 @EnableWebMvc
-@RequestMapping("/api")
+@RequestMapping("/api/customer")
 public class CustomerRestController {
     @Autowired
     private CustomerService customerService;
 
     @PostConstruct
     public void loadCustomers(){
-        customerService.addCustomer(
+        customerService.add(
                 new Customer("Lola", "Lolas Street 1", "Lolita19@gmail.com", "111-222-333"));
-        customerService.addCustomer(
+        customerService.add(
                 new Customer("Rio", "Rios Street 91", "Rivero92@gmail.com", "437-249-535"));
-        customerService.addCustomer(
+        customerService.add(
                 new Customer("Luigi", "Luigis Street 5a", "Lugiovanni1@gmail.com","900-142-388"));
     }
 
-    @GetMapping("/customer/{username}")
+    @GetMapping("/{username}")
     public Customer getCustomer(@PathVariable String username){
-        return customerService.getCustomerByUserName(username);
+        return customerService.getByUsername(username);
     }
 
-    @PostMapping("/customer")
+    @PostMapping
     public String newCustomer(@RequestBody Customer customer){
-        if(customerService.addCustomer(customer))
+        if(customerService.add(customer))
             return "Customer added successfully!";
         return "Adding customer failed.";
     }
 
     // pomoćni request
-    @GetMapping("/customer/all")
+    @GetMapping("/all")
     public List<Customer> getAllCustomers(){
-        return customerService.getAllCustomers();
+        return customerService.getAll();
     }
 
-    @PutMapping("/customer")
+    @PutMapping
     public void updateCustomer(@RequestBody Customer customer){
-        customerService.updateCustomer(customer);
+        customerService.update(customer);
     }
 
-    @DeleteMapping("/customer/{username}")
+    @DeleteMapping("/{username}")
     public void deleteCustomer(@PathVariable String username){
-        customerService.deleteCustomerByUserName(username);
+        customerService.delete(username);
     }
 }
