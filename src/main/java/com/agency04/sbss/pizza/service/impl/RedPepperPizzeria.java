@@ -4,7 +4,6 @@ import com.agency04.sbss.pizza.model.Pizza;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Value;
 
-
 public class RedPepperPizzeria implements PizzeriaService {
     @Value("Red Pepper Pizzeria")
     private String name;
