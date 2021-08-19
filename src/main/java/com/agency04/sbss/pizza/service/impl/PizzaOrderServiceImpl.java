@@ -13,8 +13,6 @@ import java.util.List;
 public class PizzaOrderServiceImpl implements PizzaOrderService {
     @Autowired
     private PizzaOrderRepository pizzaOrderRepository;
-    @Autowired
-    private PizzaRepository pizzaRepository;
 
     @Override
     public void add(PizzaOrder pizzaOrder) {

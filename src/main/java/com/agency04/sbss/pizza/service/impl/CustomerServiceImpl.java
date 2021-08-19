@@ -18,35 +18,30 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerServiceImpl(){};
 
     @Override
-    public void add(Customer customer) {
-        customerRepository.save(customer);
-    }
-
-    @Override
     public Customer getByUsername(String name) {
      Optional<Customer> result = customerRepository.findByUsername(name);
         Customer theCustomer = null;
         if(result.isPresent()){
             theCustomer = result.get();
+            return theCustomer;
         }
         else{
             throw new CustomerNotFoundException();
         }
-        return theCustomer;
     }
 
     @Override
-    public void update(Customer customer) {
+    public Customer createOrUpdate(Customer customer) {
         Optional<Customer> result =
                 customerRepository.findByUsername(customer.getUsername());
         Customer theCustomer = null;
         if(result.isPresent()){
             theCustomer = result.get();
             theCustomer.setCustomerDetails(customer.getCustomerDetails());
-            customerRepository.save(theCustomer);
+            return customerRepository.save(theCustomer);
         }
         else{
-            customerRepository.save(customer);
+            return customerRepository.save(customer);
         }
     }
 

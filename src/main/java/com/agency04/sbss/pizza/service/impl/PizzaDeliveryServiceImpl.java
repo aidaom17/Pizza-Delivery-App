@@ -1,5 +1,6 @@
 package com.agency04.sbss.pizza.service.impl;
 
+import com.agency04.sbss.pizza.model.impl.Customer;
 import com.agency04.sbss.pizza.model.impl.Delivery;
 import com.agency04.sbss.pizza.model.impl.Pizza;
 import com.agency04.sbss.pizza.repository.DeliveryRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PizzaDeliveryServiceImpl implements PizzaDeliveryService {
@@ -52,8 +54,19 @@ public class PizzaDeliveryServiceImpl implements PizzaDeliveryService {
     }
 
     @Override
-    public void add(Delivery delivery) {
-        deliveryRepository.save(delivery);
+    public Delivery createOrUpdate(Delivery delivery) {
+        Optional<Delivery> result =
+                deliveryRepository.findById(delivery.getId());
+        Delivery theDelivery = null;
+        if(result.isPresent()){
+            theDelivery = result.get();
+            theDelivery.setCustomer(delivery.getCustomer());
+            theDelivery.setSubmissionDate(delivery.getSubmissionDate());
+            return deliveryRepository.save(theDelivery);
+        }
+        else{
+            return deliveryRepository.save(delivery);
+        }
     }
 
     @PreDestroy

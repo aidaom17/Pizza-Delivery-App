@@ -3,6 +3,8 @@ package com.agency04.sbss.pizza.rest;
 import com.agency04.sbss.pizza.model.impl.Customer;
 import com.agency04.sbss.pizza.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -21,8 +23,13 @@ public class CustomerRestController {
     }
 
     @PostMapping
-    public void newCustomer(@RequestBody Customer customer){
-        customerService.add(customer);
+    public ResponseEntity<Customer> newCustomer(@RequestBody Customer customer){
+        try{
+            Customer theCustomer = customerService.createOrUpdate(customer);
+            return new ResponseEntity<Customer>(theCustomer, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // pomoćni request
@@ -32,8 +39,13 @@ public class CustomerRestController {
     }
 
     @PutMapping
-    public void updateCustomer(@RequestBody Customer customer){
-        customerService.update(customer);
+    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer){
+        try {
+            Customer theCustomer = customerService.createOrUpdate(customer);
+            return new ResponseEntity<Customer>(theCustomer, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{username}")

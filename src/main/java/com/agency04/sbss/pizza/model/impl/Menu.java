@@ -12,10 +12,6 @@ public class Menu {
         return pizzaSizes;
     }
 
-    public void setPizzaSizes(List<Size> pizzaSizes) {
-        this.pizzaSizes = pizzaSizes;
-    }
-
     public List<Pizza> getPizzas() {
         return pizzas;
     }

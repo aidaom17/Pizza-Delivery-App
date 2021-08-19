@@ -24,7 +24,7 @@ public class PizzaRestController{
     @GetMapping("/menu")
     public Menu getMenu(){
         Menu theMenu = new Menu();
-        theMenu.setPizzaSizes(Arrays.asList(Size.values()));
+        theMenu.getPizzaSizes().addAll(Arrays.asList(Size.values()));
         theMenu.setPizzas(getAllPizzas());
         return theMenu;
     }

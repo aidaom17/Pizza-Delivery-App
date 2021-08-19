@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.Set;
 
 import static com.agency04.sbss.pizza.model.Ingredients.*;
-import static com.agency04.sbss.pizza.model.Ingredients.CHILLI_PEPPER;
 
 @SpringBootApplication
 public class PizzaApp implements CommandLineRunner {
