@@ -2,6 +2,7 @@ package com.agency04.sbss.pizza.model.impl;
 
 import com.agency04.sbss.pizza.model.Size;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
@@ -9,7 +10,7 @@ public class Menu {
     private List<Pizza> pizzas;
 
     public List<Size> getPizzaSizes() {
-        return pizzaSizes;
+        return Arrays.asList(Size.values());
     }
 
     public List<Pizza> getPizzas() {
