@@ -1,20 +1,16 @@
 package com.agency04.sbss.pizza.model.impl;
 
-import com.agency04.sbss.pizza.model.Pizza;
-import com.agency04.sbss.pizza.model.Sizes;
+import com.agency04.sbss.pizza.model.Size;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
-    private List<Sizes> pizzaSizes;
+    private List<Size> pizzaSizes;
     private List<Pizza> pizzas;
 
-    public List<Sizes> getPizzaSizes() {
-        return pizzaSizes;
-    }
-
-    public void setPizzaSizes(List<Sizes> pizzaSizes) {
-        this.pizzaSizes = pizzaSizes;
+    public List<Size> getPizzaSizes() {
+        return Arrays.asList(Size.values());
     }
 
     public List<Pizza> getPizzas() {

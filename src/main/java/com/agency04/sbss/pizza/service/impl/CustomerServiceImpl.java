@@ -2,67 +2,57 @@ package com.agency04.sbss.pizza.service.impl;
 
 import com.agency04.sbss.pizza.exception.CustomerNotFoundException;
 import com.agency04.sbss.pizza.model.impl.Customer;
+import com.agency04.sbss.pizza.repository.CustomerRepository;
 import com.agency04.sbss.pizza.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    private List<Customer> customers = new ArrayList<Customer>();
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public CustomerServiceImpl(){};
 
-    public CustomerServiceImpl(List<Customer> customers) {
-        this.customers = customers;
-    }
-
-    @Override
-    public boolean add(Customer customer) {
-        if(customer == null)
-            return false;
-
-        customers.add(customer);
-        return true;
-    }
-
     @Override
     public Customer getByUsername(String name) {
-        for (Customer customer: customers) {
-            if(customer.getName().equals(name)) {
-                return customer;
-            }
+     Optional<Customer> result = customerRepository.findByUsername(name);
+        Customer theCustomer = null;
+        if(result.isPresent()){
+            theCustomer = result.get();
+            return theCustomer;
         }
-        throw new CustomerNotFoundException();
+        else{
+            throw new CustomerNotFoundException();
+        }
     }
 
     @Override
-    public void update(Customer customer) {
-        Customer theCustomer = getByUsername(customer.getName());
-        int index = customers.indexOf(theCustomer);
-        if (index == -1) {
-            throw new CustomerNotFoundException();
+    public Customer createOrUpdate(Customer customer) {
+        Optional<Customer> result =
+                customerRepository.findByUsername(customer.getUsername());
+        Customer theCustomer = null;
+        if(result.isPresent()){
+            theCustomer = result.get();
+            theCustomer.setCustomerDetails(customer.getCustomerDetails());
+            return customerRepository.save(theCustomer);
         }
         else{
-            customers.set(index, customer);
-            return;
+            return customerRepository.save(customer);
         }
     }
 
     @Override
     public void delete(String name) {
-        for (Customer customer: customers) {
-            if(customer.getName().equals(name)) {
-                customers.remove(customer);
-                return;
-            }
-        }
-        throw new CustomerNotFoundException();
+        Customer customer = getByUsername(name);
+        customerRepository.delete(customer);
     }
 
     @Override
     public List<Customer> getAll() {
-        return customers;
+        return customerRepository.findAll();
     }
 }

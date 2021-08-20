@@ -1,10 +1,9 @@
 package com.agency04.sbss.pizza.service.impl;
 
-import com.agency04.sbss.pizza.exception.PizzaNotFoundException;
-import com.agency04.sbss.pizza.model.Pizza;
-import com.agency04.sbss.pizza.model.impl.DeliveryOrderForm;
-import com.agency04.sbss.pizza.model.impl.DiavolaPizza;
-import com.agency04.sbss.pizza.model.impl.TricolorePizza;
+import com.agency04.sbss.pizza.model.impl.Customer;
+import com.agency04.sbss.pizza.model.impl.Delivery;
+import com.agency04.sbss.pizza.model.impl.Pizza;
+import com.agency04.sbss.pizza.repository.DeliveryRepository;
 import com.agency04.sbss.pizza.service.PizzaDeliveryService;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +11,13 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PizzaDeliveryServiceImpl implements PizzaDeliveryService {
-    List<DeliveryOrderForm> theOrders = new ArrayList<DeliveryOrderForm>();
+    @Autowired
+    private DeliveryRepository deliveryRepository;
 
     @Autowired
     private PizzeriaService pizzeriaService;
@@ -26,6 +26,12 @@ public class PizzaDeliveryServiceImpl implements PizzaDeliveryService {
 
     public PizzaDeliveryServiceImpl(PizzeriaService thePizzeriaService){
         this.pizzeriaService = thePizzeriaService;
+    }
+
+    @PostConstruct
+    public void openDelivery(){
+        System.out.println("Pizza delivery is open. You can order your favourite pizzas from " +
+                pizzeriaService.getName() + "!");
     }
 
     @Override
@@ -41,27 +47,26 @@ public class PizzaDeliveryServiceImpl implements PizzaDeliveryService {
                 "\n --> Pizza is coming soon!";
     }
 
+
     @Override
-    public String orderPizza(DeliveryOrderForm theDeliveryOrderForm) {
-        if (theDeliveryOrderForm.getPizza() instanceof DiavolaPizza ||
-                theDeliveryOrderForm.getPizza() instanceof TricolorePizza){
-            theOrders.add(theDeliveryOrderForm);
-            return "Pizza is ordered";
-        }
-        else {
-            throw new PizzaNotFoundException();
-        }
+    public List<Delivery> getDeliveries() {
+        return deliveryRepository.findAll();
     }
 
     @Override
-    public List<DeliveryOrderForm> getOrders() {
-        return theOrders;
-    }
-
-    @PostConstruct
-    public void openDelivery(){
-        System.out.println("Pizza delivery is open. You can order your favourite pizzas from " +
-                pizzeriaService.getName() + "!");
+    public Delivery createOrUpdate(Delivery delivery) {
+        Optional<Delivery> result =
+                deliveryRepository.findById(delivery.getId());
+        Delivery theDelivery = null;
+        if(result.isPresent()){
+            theDelivery = result.get();
+            theDelivery.setCustomer(delivery.getCustomer());
+            theDelivery.setSubmissionDate(delivery.getSubmissionDate());
+            return deliveryRepository.save(theDelivery);
+        }
+        else{
+            return deliveryRepository.save(delivery);
+        }
     }
 
     @PreDestroy
